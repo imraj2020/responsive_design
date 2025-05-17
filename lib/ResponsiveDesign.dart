@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'CustomCardView.dart';
-import 'package:sizer/sizer.dart';
+
+
 
 class ResponsiveUi extends StatefulWidget {
   const ResponsiveUi({super.key});
@@ -123,7 +123,7 @@ class _ResponsiveUiState extends State<ResponsiveUi> {
 
     if (screenSize.width > 768 && screenSize.width < 1024) {
       carditem = 3;
-    } else if (screenSize.width > 1024) {
+    } else if (screenSize.width >= 1024) {
       carditem = 4;
     } else {
       carditem = 2;
@@ -139,32 +139,29 @@ class _ResponsiveUiState extends State<ResponsiveUi> {
       ),
 
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: GridView.builder(
-            itemCount: cardData.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: carditem,
-              mainAxisSpacing: 20,
-              crossAxisSpacing: 20,
-              childAspectRatio: 0.75, // optional, controls height/width ratio
+        child: GridView.builder(
+              itemCount: cardData.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: carditem,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+              ),
+        
+              itemBuilder: (context, index) {
+                final item = cardData[index];
+                return CustomCardView(
+                  imageUrl: item['image']!,
+                  description: item['description']!,
+                  onViewPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Viewing: ${item['description']}")),
+                    );
+                  },
+                );
+              },
             ),
-
-            itemBuilder: (context, index) {
-              final item = cardData[index];
-              return CustomCardView(
-                imageUrl: item['image']!,
-                description: item['description']!,
-                onViewPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Viewing: ${item['description']}")),
-                  );
-                },
-              );
-            },
-          ),
-        ),
       ),
     );
+
   }
 }

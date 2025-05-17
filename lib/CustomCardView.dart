@@ -21,49 +21,60 @@ class _CustomCardViewState extends State<CustomCardView> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Card(
-          elevation: 1,
-          color: Colors.lightBlue,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          child: SizedBox(
-            width: constraints.minWidth,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
 
-                ClipRRect(
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-                  child: Image.network(
-                    widget.imageUrl,
-                    height: 120,
-                    width: constraints.maxWidth,
-                    fit: BoxFit.cover,
+         return Container(
+          margin: EdgeInsets.all(10),
+          padding: EdgeInsets.all(10),
 
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(0.0),
-                  child: Text(widget.description, style: const TextStyle(fontSize: 14, color: Colors.white,fontWeight: FontWeight.bold)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton(
-                        onPressed: widget.onViewPressed,
-                        child: const Text("বিস্তারিত দেখি", style: TextStyle(fontSize: 12)),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey,
+                offset: Offset(4, 4),
+                blurRadius: 10,
+              ),
+            ],
+          ),
+          alignment: Alignment.center,
+         
+          child: Column(
+            children: [
+
+                Expanded(child: Image.network(widget.imageUrl,height: 87,width: 300)),
+
+                Positioned(
+                  bottom: 15,
+                  right: 10,
+                  child: Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.all(5),
+                    child: Text(
+                      widget.description,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.orange,
+                        fontWeight: FontWeight.bold,
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ],
-            ),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: widget.onViewPressed,
+                      child: const Text("বিস্তারিত দেখি", style: TextStyle(fontSize: 12)),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         );
-      },
-    );
   }
 }
